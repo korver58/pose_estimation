@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - USER=developer
+    volumes:
+      - .:/home/developer/host_dir
+    environment:
+      - DISPLAY=${DISPLAY}
+    network_mode: "host"
+    tty: true
+    stdin_open: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]
